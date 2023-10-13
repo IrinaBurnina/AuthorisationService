@@ -1,5 +1,6 @@
 package ru.burn.AuthorizationService.advice;
 
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,5 +19,11 @@ public class exceptionHandlerAdvice {
     public ResponseEntity<String> unAuthorizUserHandler(UnauthorizedUser e) {
         e.printStackTrace();
         return new ResponseEntity<>("UnauthorizedUser in throwException method", HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<String> authorisationUserHandler(ConstraintViolationException e) {
+        e.printStackTrace();
+        return new ResponseEntity<>("ConstraintViolationException in throwException method", HttpStatus.BAD_REQUEST);
     }
 }
