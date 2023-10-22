@@ -3,6 +3,7 @@ package ru.burn.AuthorizationService.service;
 import ru.burn.AuthorizationService.exception.InvalidCredentials;
 import ru.burn.AuthorizationService.exception.UnauthorizedUser;
 import ru.burn.AuthorizationService.model.Authorities;
+import ru.burn.AuthorizationService.model.User;
 import ru.burn.AuthorizationService.repository.UserRepository;
 
 import java.util.List;
@@ -14,13 +15,13 @@ public class AuthorizationService {
         this.userRepository = userRepository;
     }
 
-    public List<Authorities> getAuthorities(String user, String password) {
-        if (isEmpty(user) || isEmpty(password)) {
+    public List<Authorities> getAuthorities(User user) {
+        if (isEmpty(user.getName()) || isEmpty(user.getPassword())) {
             throw new InvalidCredentials("User name or password is empty");
         }
-        List<Authorities> userAuthorities = userRepository.getUserAuthorities(user, password);
+        List<Authorities> userAuthorities = userRepository.getUserAuthorities(user.getName(), user.getPassword());
         if (isEmpty(userAuthorities)) {
-            throw new UnauthorizedUser("Unknown user " + user);
+            throw new UnauthorizedUser("Unknown user " + user.getName());
         }
         return userAuthorities;
     }

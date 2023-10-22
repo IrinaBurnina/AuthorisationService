@@ -8,32 +8,32 @@ import jakarta.validation.constraints.Size;
 import java.util.Objects;
 
 public class User {
-    @NotBlank
-    @Size(min = 1, max = 25)
-    private String user;
-    @Min(0)
+    @NotBlank(message = "users name is not to be empty")
+    @Size(min = 1, max = 25, message = "users name is more then 1 and less then 25 characters")
+    private String name;
+    @Min(value = 0000, message = "users password is not to be empty")
     @Max(9999)
-    @Size(min = 4, max = 4)
+    @Size(min = 4, max = 4, message = "password must have 4 characters")
     private String password;
 
     public User() {
     }
 
-    public User(String user, String password) {
-        this.user = user;
+    public User(String name, String password) {
+        this.name = name;
         this.password = password;
     }
 
-    public String getUser() {
-        return user;
+    public String getName() {
+        return name;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setPassword(String password) {
@@ -45,18 +45,18 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(this.user, user.user) && Objects.equals(password, user.password);
+        return Objects.equals(this.name, user.name) && Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user, password);
+        return Objects.hash(name, password);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "name='" + user + '\'' +
+                "name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

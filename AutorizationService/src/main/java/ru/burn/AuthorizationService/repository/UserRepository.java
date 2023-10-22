@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class UserRepository {
-    //private
     static Map<User, List<Authorities>> userAuthorities;
 
     public UserRepository() {
